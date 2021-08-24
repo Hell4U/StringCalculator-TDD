@@ -33,7 +33,7 @@ public class Calculator {
                 }else{
                     negativeNumber.append(","+values);
                 }
-            }else{
+            }else if(stringToInt(values)<=1000){
             sum+=stringToInt(values);
             }
         }
