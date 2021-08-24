@@ -4,7 +4,7 @@ public class Calculator {
         if(empty(input)){
             return 0;
         } else {
-            String[] nums=input.split(",");
+            String[] nums=input.split(",|\n");
             return sum(nums);
         }
     }
