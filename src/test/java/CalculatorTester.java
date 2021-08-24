@@ -31,4 +31,9 @@ public class CalculatorTester {
         Assert.assertEquals(8,calculator.add("1,2,3,2"));
     }
 
+    @Test
+    public void twoDelimiterSeparationSum(){
+        Assert.assertEquals(9,calculator.add("1,2\n6"));
+    }
+
 }
