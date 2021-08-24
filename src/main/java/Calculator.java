@@ -7,8 +7,12 @@ public class Calculator {
             return stringToInt(input);
         } else{
             String[] nums=input.split(",");
-            return Integer.parseInt(nums[0])+Integer.parseInt(nums[1]);
+            return sum(nums);
         }
+    }
+
+    private int sum(String[] nums){
+        return stringToInt(nums[0])+stringToInt(nums[1]);
     }
 
     private boolean empty(String input){
