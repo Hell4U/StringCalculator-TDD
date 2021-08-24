@@ -1,23 +1,25 @@
-public class Calculator {
-    private final String delimiters="[,\n]";
 
+public class Calculator {
     public int add(String input){
+        String delimiters="[,\n]";
         String[] nums=null;
         if(input.matches("//(.)\n(.*)")){
+
             char randomDelimiter=input.charAt(2);
             String newInput=input.substring(4);
-            String[] vals=newInput.split(Character.toString(randomDelimiter));
+
+            String[] vals=splitter(newInput,Character.toString(randomDelimiter));
             return sum(vals);
         }
         else if(empty(input)){
             return 0;
         } else {
-            nums=splitter(input);
+            nums=splitter(input,delimiters);
             return sum(nums);
         }
     }
 
-    private String[] splitter(String input){
+    private String[] splitter(String input, String delimiters){
         return input.split(delimiters);
     }
 
