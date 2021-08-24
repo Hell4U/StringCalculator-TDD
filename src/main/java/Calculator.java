@@ -1,9 +1,17 @@
 public class Calculator {
-    public int add(String string){
-        if(string.isEmpty()){
+    public int add(String input){
+        if(empty(input)){
         return 0;
         } else{
-            return Integer.parseInt(string);
+            return stringToInt(input);
         }
+    }
+
+    private boolean empty(String input){
+        return input.isEmpty();
+    }
+
+    private int stringToInt(String num){
+        return Integer.parseInt(num);
     }
 }
