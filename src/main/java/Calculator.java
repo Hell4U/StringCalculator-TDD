@@ -3,9 +3,7 @@ public class Calculator {
 
         if(empty(input)){
             return 0;
-        } else if(input.length()==1){
-            return stringToInt(input);
-        } else{
+        } else {
             String[] nums=input.split(",");
             return sum(nums);
         }
@@ -13,8 +11,8 @@ public class Calculator {
 
     private int sum(String[] nums){
         int sum=0;
-        for(int i=0;i<nums.length;i++){
-            sum+=stringToInt(nums[i]);
+        for(String values:nums){
+            sum+=stringToInt(values);
         }
         return sum;
     }

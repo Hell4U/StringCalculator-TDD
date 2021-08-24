@@ -30,4 +30,5 @@ public class CalculatorTester {
     public void multiValueSum(){
         Assert.assertEquals(8,calculator.add("1,2,3,2"));
     }
+
 }
