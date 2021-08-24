@@ -25,4 +25,9 @@ public class CalculatorTester {
     public void twoValueSum(){
         Assert.assertEquals(6,calculator.add("2,4"));
     }
+
+    @Test
+    public void multiValueSum(){
+        Assert.assertEquals(8,calculator.add("1,2,3,2"));
+    }
 }
