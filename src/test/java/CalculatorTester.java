@@ -20,4 +20,9 @@ public class CalculatorTester {
     public void singleValueString(){
         Assert.assertEquals(4,calculator.add("4"));
     }
+
+    @Test
+    public void twoValueSum(){
+        Assert.assertEquals(6,calculator.add("2,4"));
+    }
 }
