@@ -33,7 +33,7 @@ public class CalculatorTester {
 
     @Test
     public void twoDelimiterSeparationSum(){
-        Assert.assertEquals(13,calculator.add("1,2\n6/4"));
+        Assert.assertEquals(13,calculator.add("1,2\n6,4"));
     }
 
 }
