@@ -15,4 +15,9 @@ public class CalculatorTester {
     public void emptyStringTest(){
         Assert.assertEquals(0,calculator.add(""));
     }
+
+    @Test
+    public void singleValueString(){
+        Assert.assertEquals(4,calculator.add("4"));
+    }
 }
