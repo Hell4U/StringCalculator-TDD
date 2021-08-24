@@ -38,7 +38,7 @@ public class CalculatorTester {
 
     @Test
     public void oneRandomDelimiterSeparationSum(){
-        Assert.assertEquals(3,calculator.add("//;\n1;4"));
+        Assert.assertEquals(5,calculator.add("//;\n1;4"));
     }
 
 }
