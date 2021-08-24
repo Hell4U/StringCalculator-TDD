@@ -61,4 +61,9 @@ public class CalculatorTester {
 
     }
 
+    @Test
+    public void numberGreaterThan1000(){
+        Assert.assertEquals(10,calculator.add("5,10,1002"));
+    }
+
 }

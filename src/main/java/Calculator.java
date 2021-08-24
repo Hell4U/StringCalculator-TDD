@@ -27,7 +27,7 @@ public class Calculator {
         int sum=0;
         StringBuffer negativeNumber = new StringBuffer("");
         for(String values:nums){
-            if(Integer.parseInt(values)<0){
+            if(stringToInt(values)<0){
                 if(negativeNumber.toString().isEmpty()){
                     negativeNumber.append(values);
                 }else{
@@ -38,7 +38,7 @@ public class Calculator {
             }
         }
         if(!negativeNumber.toString().isEmpty()){
-           throw new IllegalArgumentException("negative not allowed: "+negativeNumber.toString());
+           throw new IllegalArgumentException("negative not allowed: "+negativeNumber);
         }
 
         return sum;
