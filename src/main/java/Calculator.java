@@ -12,7 +12,11 @@ public class Calculator {
     }
 
     private int sum(String[] nums){
-        return stringToInt(nums[0])+stringToInt(nums[1]);
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=stringToInt(nums[i]);
+        }
+        return sum;
     }
 
     private boolean empty(String input){
