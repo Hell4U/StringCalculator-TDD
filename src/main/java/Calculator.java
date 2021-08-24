@@ -1,12 +1,17 @@
 public class Calculator {
-    public int add(String input){
+    private final String delimiters="[,\n]";
 
+    public int add(String input){
+        String[] nums=splitter(input);
         if(empty(input)){
             return 0;
         } else {
-            String[] nums=input.split(",|\n");
             return sum(nums);
         }
+    }
+
+    private String[] splitter(String input){
+        return input.split(delimiters);
     }
 
     private int sum(String[] nums){
