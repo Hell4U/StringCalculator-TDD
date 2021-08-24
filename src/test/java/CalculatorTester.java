@@ -41,4 +41,9 @@ public class CalculatorTester {
         Assert.assertEquals(5,calculator.add("//;\n1;4"));
     }
 
+    @Test
+    public void negativeNumberTesting(){
+        Assert.assertEquals("-1,-2",calculator.add("1,4,5,-1,-2"));
+    }
+
 }
