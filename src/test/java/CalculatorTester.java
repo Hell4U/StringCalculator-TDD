@@ -42,8 +42,13 @@ public class CalculatorTester {
     }
 
     @Test
-    public void negativeNumberTesting(){
-        Assert.assertEquals("-1,-2",calculator.add("1,4,5,-1,-2"));
+    public void oneNegativeNumberTesting(){
+        Assert.assertEquals("negative not allowed: -1",calculator.add("1,4,5,-1,2"));
+    }
+
+    @Test
+    public void multipleNegativeNumberTesting(){
+        Assert.assertEquals("negative not allowe: -2,-3",calculator.add("1,3,4,-2,-3"));
     }
 
 }
