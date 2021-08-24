@@ -25,9 +25,22 @@ public class Calculator {
 
     private int sum(String[] nums){
         int sum=0;
+        StringBuffer negativeNumber = new StringBuffer("");
         for(String values:nums){
+            if(Integer.parseInt(values)<0){
+                if(negativeNumber.toString().isEmpty()){
+                    negativeNumber.append(values);
+                }else{
+                    negativeNumber.append(","+values);
+                }
+            }else{
             sum+=stringToInt(values);
+            }
         }
+        if(!negativeNumber.toString().isEmpty()){
+           throw new IllegalArgumentException("negative not allowed: "+negativeNumber.toString());
+        }
+
         return sum;
     }
 
