@@ -1,9 +1,19 @@
 
 public class Calculator {
     public int add(String input){
+
         String delimiters="[,\n]";
         String[] nums=null;
-        if(input.matches("//(.)\n(.*)")){
+        if(input.startsWith("//[")){
+            int start=input.indexOf('[');
+            int end=input.indexOf(']');
+            String delimiter=input.substring(start+1,end);
+            String newInput=input.substring(end+2);
+
+            String[] vals=splitter(newInput,delimiter);
+            return sum(vals);
+        }
+        else if(input.matches("//(.)\n(.*)")){
 
             char randomDelimiter=input.charAt(2);
             String newInput=input.substring(4);
