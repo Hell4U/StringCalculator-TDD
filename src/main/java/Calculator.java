@@ -1,57 +1,84 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class Calculator {
     public int add(String input){
+        if(empty(input)) return 0;
 
-        String delimiters="[,\n]";
         String[] nums=null;
-        if(input.startsWith("//[")){
-            int start=input.indexOf('[');
-            int end=input.indexOf(']');
-            String delimiter=input.substring(start+1,end);
-            String newInput=input.substring(end+2);
-
-            String[] vals=splitter(newInput,delimiter);
-            return sum(vals);
+        String delimiter=null;
+        String newInput=input;
+        if(input.startsWith("//")){
+            if(delimiterLengthChecker(input)){
+                delimiter=charToString(input.charAt(2));
+                newInput=input.substring(4);
+            }else{
+                delimiter=multiLengthSplitter(input);
+                newInput=substringNumberExtractor(input);
+            }
         }
-        else if(input.matches("//(.)\n(.*)")){
-
-            char randomDelimiter=input.charAt(2);
-            String newInput=input.substring(4);
-
-            String[] vals=splitter(newInput,Character.toString(randomDelimiter));
-            return sum(vals);
+        else {
+            delimiter="[,\n]";
         }
-        else if(empty(input)){
-            return 0;
-        } else {
-            nums=splitter(input,delimiters);
-            return sum(nums);
+        nums=splitter(newInput,delimiter);
+        return sum(nums);
+    }
+
+    private int sum(String[] nums){
+        int sum=0;
+        negativeFiltering(nums);
+        for(String values:nums){
+            if(stringToInt(values)<=1000){
+            sum+=stringToInt(values);
+            }
         }
+        return sum;
+    }
+
+    private void negativeFiltering(String[] nums){
+        String areNegative=negativeFinder(nums);
+        if(!empty(areNegative)){
+            throw new IllegalArgumentException("negative not allowed: "+areNegative);
+        }
+    }
+
+    private String negativeFinder(String[] nums){
+        List<String> numberHolder=new ArrayList<String>();
+        for(String val:nums){
+            if(stringToInt(val)<0){
+                numberHolder.add(val);
+            }
+        }
+        return listToString(numberHolder);
+    }
+
+    private Boolean delimiterLengthChecker(String input){
+        if(input.charAt(2)=='['){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    private String multiLengthSplitter(String input){
+        int start=input.indexOf('[');
+        int end=input.indexOf(']');
+       return input.substring(start+1,end);
+    }
+
+    private String substringNumberExtractor(String input){
+        int end=input.indexOf(']');
+        return input.substring(end+2);
     }
 
     private String[] splitter(String input, String delimiters){
         return input.split(delimiters);
     }
 
-    private int sum(String[] nums){
-        int sum=0;
-        StringBuffer negativeNumber = new StringBuffer("");
-        for(String values:nums){
-            if(stringToInt(values)<0){
-                if(negativeNumber.toString().isEmpty()){
-                    negativeNumber.append(values);
-                }else{
-                    negativeNumber.append(","+values);
-                }
-            }else if(stringToInt(values)<=1000){
-            sum+=stringToInt(values);
-            }
-        }
-        if(!negativeNumber.toString().isEmpty()){
-           throw new IllegalArgumentException("negative not allowed: "+negativeNumber);
-        }
-
-        return sum;
+    private String listToString(List<String> numbers){
+        return String.join(",",numbers);
     }
 
     private boolean empty(String input){
@@ -60,5 +87,9 @@ public class Calculator {
 
     private int stringToInt(String num){
         return Integer.parseInt(num);
+    }
+
+    private String charToString(Character c){
+        return Character.toString(c);
     }
 }
