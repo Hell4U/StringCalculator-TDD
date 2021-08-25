@@ -14,3 +14,16 @@
 9.  Testing on _One Random Delimiter_ of any length eg :-`"//[***]\n1***2"`
 10. Testing on _Multiple Random Delimiter_ of single length eg:- `"//[*][,][@]\n1*2@3,4"`
 11. Testing on _Multiple Random Delimiter_ of any length eg:- `"//[**][$]\n1**2$5"`
+
+#### The flow of the commit messages(That are written at the end)
+
+|No.|What is written|Meaning|
+|---|---------------|-------|
+|1|`RED`| Means TDD 1st phase where we write failing test case| 
+|2|`GREEN`| Means written just enough code to pass previous test case|
+|3|`REFACTOR`| Means the barely written code is refactored such that it do not break any other test cases|
+
+#### What will you fing in commits?
+1. `RED` commit message will have test cases.
+2. `GREEN` commit message will have bare minimum code passing the previous test case.
+3. `REFACTOR` commit message will have refactored code from the previous one such that it do not break the other testcase.
