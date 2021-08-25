@@ -68,7 +68,7 @@ public class CalculatorTester {
 
     @Test
     public void singleDelimiterOfAnyLength(){
-        Assert.assertEquals(10,calculator.add("//[aaa]\n1aaa9"));
+        Assert.assertEquals(10,calculator.add("//[**]\n1**9"));
     }
 
     @Test

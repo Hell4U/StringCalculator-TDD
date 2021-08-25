@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Calculator {
     public int add(String input){
+
         if(empty(input)) return 0;
 
         String[] nums=null;
-        String delimiter=null;
+        String delimiter="";
         String newInput=input;
 
         if(input.startsWith("//")){
@@ -15,15 +17,11 @@ public class Calculator {
                 newInput=input.substring(4);
             }else {
                 List<Integer> opening=openingBracket(input);
+                List<Integer> closing=closingBracket(input);
                 int n=opening.size();
-                if(opening.size()>1){
-                    int end=opening.get(n-1)+4;
-                    delimiter="["+multiSingleLengthSplitter(opening,n,input)+"]";
-                    newInput=multiSingleSubstringNumberExtractor(input,end);
-                }else{
-                    delimiter= singleMultiLengthSplitter(input);
-                    newInput= multiSubstringNumberExtractor(input);
-                }
+                int end=closing.get(n-1);
+                delimiter=allPurposeLengthSplitter(opening,closing,input);
+                newInput=allPurposeNumberExtractor(end,input);
             }
         }
         else {
@@ -71,12 +69,6 @@ public class Calculator {
 
     }
 
-    private String singleMultiLengthSplitter(String input){
-        int start=input.indexOf('[');
-        int end=input.indexOf(']');
-       return input.substring(start+1,end);
-    }
-
     private List<Integer> openingBracket(String input){
         List<Integer> opening=new ArrayList<>();
         int n=input.length();
@@ -89,23 +81,35 @@ public class Calculator {
         return opening;
     }
 
-    private String multiSingleLengthSplitter(List<Integer> opening,int n,String input){
+    private List<Integer> closingBracket(String input){
+        List<Integer> closing=new ArrayList<>();
+        int end=input.indexOf(']');
+        while(end>=0){
+            closing.add(end);
+            end=input.indexOf(']',end+1);
+        }
+        return closing;
+    }
+
+    private String allPurposeLengthSplitter(List<Integer> opening, List<Integer> closing, String input){
         String s="";
+        int n=opening.size();
         for(int i=0;i<n;i++){
             int start=opening.get(i);
-            s+=input.substring(start+1,start+2);
+            int end=closing.get(i);
+            String tmp=input.substring(start+1,end);
+            if(isDangerous(tmp.charAt(0))){
+                s+=makeSafe(tmp);
+            }else
+                s+=tmp;
+            if(i<n-1)
+                s+="|";
         }
         return s;
     }
 
-
-    private String multiSubstringNumberExtractor(String input){
-        int end=input.indexOf(']');
+    private String allPurposeNumberExtractor(int end, String input){
         return input.substring(end+2);
-    }
-
-    private String multiSingleSubstringNumberExtractor(String input, int end){
-        return input.substring(end);
     }
 
     private String[] splitter(String input, String delimiters){
@@ -126,6 +130,32 @@ public class Calculator {
     }
 
     private String charToString(Character c){
+        if(isDangerous(c)){
+            return "\\"+Character.toString(c);
+        }
         return Character.toString(c);
+    }
+
+    private Boolean isDangerous(char c){
+        switch (c){
+            case '$':
+            case '.':
+            case '+':
+            case '?':
+            case '^':
+            case '*':
+                return true;
+
+        }
+        return false;
+    }
+
+    private String makeSafe(String delimiter){
+        int n=delimiter.length();
+        String s="";
+        for(int i=0;i<n;i++){
+            s = s + ("\\" + delimiter.charAt(i));
+        }
+        return s;
     }
 }
