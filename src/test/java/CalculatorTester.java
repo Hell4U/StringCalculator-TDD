@@ -76,4 +76,5 @@ public class CalculatorTester {
         Assert.assertEquals(8,calculator.add("//[;][,][`]\n1;2;1,3`1"));
     }
 
+
 }
