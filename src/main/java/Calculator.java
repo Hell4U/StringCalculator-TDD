@@ -15,8 +15,8 @@ public class Calculator {
                 newInput=input.substring(4);
             }else {
                 List<Integer> opening=openingBracket(input);
+                int n=opening.size();
                 if(opening.size()>1){
-                    int n=opening.size();
                     int end=opening.get(n-1)+4;
                     delimiter="["+multiSingleLengthSplitter(opening,n,input)+"]";
                     newInput=multiSingleSubstringNumberExtractor(input,end);
