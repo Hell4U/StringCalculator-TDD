@@ -67,8 +67,13 @@ public class CalculatorTester {
     }
 
     @Test
-    public void delimiterOfAnyLength(){
+    public void singleDelimiterOfAnyLength(){
         Assert.assertEquals(10,calculator.add("//[aaa]\n1aaa9"));
+    }
+
+    @Test
+    public void multiDelimiterOfSingleLength(){
+        Assert.assertEquals(8,calculator.add("//[;][,][`]\n1;2;1,3`1"));
     }
 
 }
