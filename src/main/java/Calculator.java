@@ -9,18 +9,40 @@ public class Calculator {
         String[] nums=null;
         String delimiter=null;
         String newInput=input;
+
         if(input.startsWith("//")){
             if(delimiterLengthChecker(input)){
                 delimiter=charToString(input.charAt(2));
                 newInput=input.substring(4);
-            }else{
-                delimiter=multiLengthSplitter(input);
-                newInput=substringNumberExtractor(input);
+            }else {
+                List<Integer> opening=new ArrayList<>();
+                int n=input.length();
+                int openingIndex=input.indexOf('[');
+                while(openingIndex>=0){
+                    opening.add(openingIndex);
+                    openingIndex=input.indexOf('[',openingIndex+1);
+
+                }
+                if(opening.size()>1){
+                    delimiter="[";
+                    n=opening.size();
+                    for(int i=0;i<n;i++){
+                        int start=opening.get(i);
+                        delimiter+=input.substring(start+1,start+2);
+                    }
+                    delimiter+="]";
+                    int end=opening.get(n-1);
+                    newInput=input.substring(end+4);
+                }else{
+                    delimiter=multiLengthSplitter(input);
+                    newInput=substringNumberExtractor(input);
+                }
             }
         }
         else {
             delimiter="[,\n]";
         }
+
         nums=splitter(newInput,delimiter);
         return sum(nums);
     }
@@ -86,6 +108,7 @@ public class Calculator {
     }
 
     private int stringToInt(String num){
+
         return Integer.parseInt(num);
     }
 
