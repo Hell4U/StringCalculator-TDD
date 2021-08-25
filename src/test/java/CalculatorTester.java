@@ -66,4 +66,9 @@ public class CalculatorTester {
         Assert.assertEquals(15,calculator.add("5,10,1002"));
     }
 
+    @Test
+    public void delimiterOfAnyLength(){
+        Assert.assertEquals(10,calculator.add("//[aaa]\n1aaa9"));
+    }
+
 }
