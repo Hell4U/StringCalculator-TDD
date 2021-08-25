@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Calculator {
     public int add(String input){
@@ -15,27 +14,15 @@ public class Calculator {
                 delimiter=charToString(input.charAt(2));
                 newInput=input.substring(4);
             }else {
-                List<Integer> opening=new ArrayList<>();
-                int n=input.length();
-                int openingIndex=input.indexOf('[');
-                while(openingIndex>=0){
-                    opening.add(openingIndex);
-                    openingIndex=input.indexOf('[',openingIndex+1);
-
-                }
+                List<Integer> opening=openingBracket(input);
                 if(opening.size()>1){
-                    delimiter="[";
-                    n=opening.size();
-                    for(int i=0;i<n;i++){
-                        int start=opening.get(i);
-                        delimiter+=input.substring(start+1,start+2);
-                    }
-                    delimiter+="]";
-                    int end=opening.get(n-1);
-                    newInput=input.substring(end+4);
+                    int n=opening.size();
+                    int end=opening.get(n-1)+4;
+                    delimiter="["+multiSingleLengthSplitter(opening,n,input)+"]";
+                    newInput=multiSingleSubstringNumberExtractor(input,end);
                 }else{
-                    delimiter=multiLengthSplitter(input);
-                    newInput=substringNumberExtractor(input);
+                    delimiter= singleMultiLengthSplitter(input);
+                    newInput= multiSubstringNumberExtractor(input);
                 }
             }
         }
@@ -84,15 +71,41 @@ public class Calculator {
 
     }
 
-    private String multiLengthSplitter(String input){
+    private String singleMultiLengthSplitter(String input){
         int start=input.indexOf('[');
         int end=input.indexOf(']');
        return input.substring(start+1,end);
     }
 
-    private String substringNumberExtractor(String input){
+    private List<Integer> openingBracket(String input){
+        List<Integer> opening=new ArrayList<>();
+        int n=input.length();
+        int openingIndex=input.indexOf('[');
+        while(openingIndex>=0){
+            opening.add(openingIndex);
+            openingIndex=input.indexOf('[',openingIndex+1);
+
+        }
+        return opening;
+    }
+
+    private String multiSingleLengthSplitter(List<Integer> opening,int n,String input){
+        String s="";
+        for(int i=0;i<n;i++){
+            int start=opening.get(i);
+            s+=input.substring(start+1,start+2);
+        }
+        return s;
+    }
+
+
+    private String multiSubstringNumberExtractor(String input){
         int end=input.indexOf(']');
         return input.substring(end+2);
+    }
+
+    private String multiSingleSubstringNumberExtractor(String input, int end){
+        return input.substring(end);
     }
 
     private String[] splitter(String input, String delimiters){
