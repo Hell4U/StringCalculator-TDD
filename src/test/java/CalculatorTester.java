@@ -76,4 +76,9 @@ public class CalculatorTester {
         Assert.assertEquals(8,calculator.add("//[;][,][`]\n1;2;1,3`1"));
     }
 
+    @Test
+    public void multiDelimiterOfMultiLength(){
+        Assert.assertEquals(6,calculator.add("//[**][,][;]\n1**2,3"));
+    }
+
 }
